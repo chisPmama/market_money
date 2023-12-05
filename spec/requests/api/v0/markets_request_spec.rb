@@ -36,6 +36,7 @@ describe "Markets API" do
 
       expect(market).to have_key(:lon)
       expect(market[:lon]).to be_a(String)
+
     end
 
   end
