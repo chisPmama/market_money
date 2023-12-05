@@ -1,207 +1,151 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/sleazypete/turing_work/3mod/projects/market_money/config/environment.rb": {
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/models/vendor.rb": {
         "lines": [
-          null,
+          1,
+          1,
           1,
           null,
-          null,
-          1
+          1,
+          null
         ]
       },
-      "/Users/sleazypete/turing_work/3mod/projects/market_money/config/application.rb": {
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/models/application_record.rb": {
         "lines": [
           1,
-          null,
           1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
+          null
+        ]
+      },
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/models/market.rb": {
+        "lines": [
           1,
           1,
           1,
           null,
-          null,
-          null,
-          null,
           1,
-          null,
+          null
+        ]
+      },
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/models/market_vendor.rb": {
+        "lines": [
           1,
           1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           1,
           null,
           null
         ]
       },
-      "/Users/sleazypete/turing_work/3mod/projects/market_money/config/boot.rb": {
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/channels/application_cable/channel.rb": {
         "lines": [
-          1,
-          null,
-          1,
-          1
-        ]
-      },
-      "/Users/sleazypete/turing_work/3mod/projects/market_money/config/environments/development.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          null,
-          1,
           0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/channels/application_cable/connection.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/controllers/api/v0/markets_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/controllers/application_controller.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/jobs/application_job.rb": {
+        "lines": [
           0,
           null,
           null,
           null,
-          1,
-          null,
-          1,
           null,
           null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
+          0
+        ],
+        "branches": {
+        }
       },
-      "/Users/sleazypete/turing_work/3mod/projects/market_money/config/initializers/cors.rb": {
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/mailers/application_mailer.rb": {
         "lines": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
       },
-      "/Users/sleazypete/turing_work/3mod/projects/market_money/config/initializers/filter_parameter_logging.rb": {
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/serializers/market_serializer.rb": {
         "lines": [
+          0,
           null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          null,
-          null
-        ]
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
       },
-      "/Users/sleazypete/turing_work/3mod/projects/market_money/config/initializers/inflections.rb": {
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/serializers/vendor_serializer.rb": {
         "lines": [
+          0,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/sleazypete/turing_work/3mod/projects/market_money/config/routes.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/sleazypete/turing_work/3mod/projects/market_money/db/seeds.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1
-        ]
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
       }
     },
-    "timestamp": 1701742563
+    "timestamp": 1701762029
   }
 }

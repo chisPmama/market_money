@@ -1,4 +1,5 @@
 class MarketSerializer
+
   def self.format_markets(markets)
     markets.map do |market|
       {

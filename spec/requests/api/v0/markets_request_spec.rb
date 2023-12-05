@@ -7,7 +7,9 @@ describe "Markets API" do
     expect(response).to be_successful
 
     markets = JSON.parse(response.body, symbolize_names: true)
+    
     expect(markets.count).to eq(3)
+
 
     markets.each do |market|
       expect(market).to have_key(:id)

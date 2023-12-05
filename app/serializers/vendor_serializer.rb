@@ -1,4 +1,5 @@
-class VendorSerializer
+class VendorSerializer < ActiveModel::Serializer
+
   def self.format_vendors(vendors)
     vendors.map do |vendor|
       {
