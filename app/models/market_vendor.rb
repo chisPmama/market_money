@@ -1,5 +1,5 @@
 class MarketVendor < ApplicationRecord
-  belongs_to :vendors
-  belongs_to :markets
+  belongs_to :vendor
+  belongs_to :market
 
 end
