@@ -11,6 +11,12 @@ class Api::V0::VendorsController < ApplicationController
   end
 
   def show
-    render json: VendorSerializer.new(Vendor.find(params[:id]))
+    vendor = Vendor.find_by(id: params[:id])
+
+    if vendor
+      render json: VendorSerializer.new(Vendor.find(params[:id]))
+    else
+      render json: { status: 404, errors: [{ detail: "Couldn't find Vendor with 'id'=#{params[:id]}" }] }
+    end
   end
 end
