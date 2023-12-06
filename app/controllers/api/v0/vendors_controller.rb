@@ -9,4 +9,8 @@ class Api::V0::VendorsController < ApplicationController
       render json: { status: 404, errors: [{ detail: "Couldn't find Market with 'id'=#{params[:id]}" }] }
     end
   end
+
+  def show
+    render json: VendorSerializer.new(Vendor.find(params[:id]))
+  end
 end
