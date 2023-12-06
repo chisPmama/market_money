@@ -101,4 +101,28 @@ describe "Vendors API" do
       expect(response.body).to include("Couldn't find Vendor with 'id'=")
     end
   end
+
+  describe "Create a Vendor" do
+    it "can create a new vendor" do
+      vendor_params = ({
+                        name: 'ChisP Supplier for Dog Treats and Human Produce',
+                        description: 'A place for bad dogs and good humans',
+                        contact_name: 'Chispa Yur-Gorzlancyk',
+                        contact_phone: '903-940-1230',
+                        credit_accepted: true
+                })
+      headers = {"CONTENT_TYPE" => "application/json"}
+      post "/api/v0/vendors", headers: headers, params: JSON.generate(vendor: vendor_params)
+      created_vendor = Vendor.last
+
+      expect(response).to be_successful
+      expect(created_vendor.name).to eq(vendor_params[:name])
+      expect(created_vendor.description).to eq(vendor_params[:description])
+      expect(created_vendor.contact_name).to eq(vendor_params[:contact_name])
+      expect(created_vendor.contact_phone).to eq(vendor_params[:contact_phone])
+      expect(created_vendor.credit_accepted).to eq(vendor_params[:credit_accepted])
+    end
+  
+  end
+
 end
