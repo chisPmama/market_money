@@ -105,7 +105,6 @@ describe "Markets API" do
       expect(response).to_not be_successful
       expect(response.status).to eq(404)
 
-
       error_market = JSON.parse(response.body, symbolize_names: true)
 
       expect(error_market).to have_key(:errors)

@@ -48,14 +48,13 @@ describe "Vendors API" do
 
     it "return an error status: 404 (sad path)" do
       get "/api/v0/markets/123123123123/vendors"
-      error_market = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
 
-      expect(error_market).to have_key(:status)
-      expect(error_market[:status]).to eq(404)
+      error_market = JSON.parse(response.body, symbolize_names: true)
 
       expect(error_market).to have_key(:errors)
       expect(error_market[:errors]).to be_an(Array)
-
       expect(response.body).to include("Couldn't find Market with 'id'=")
     end
   end
@@ -92,14 +91,13 @@ describe "Vendors API" do
 
     it "return an error status: 404 (sad path)" do
       get "/api/v0/vendors/123123123123"
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+
       error_vendor = JSON.parse(response.body, symbolize_names: true)
-      
-      expect(error_vendor).to have_key(:status)
-      expect(error_vendor[:status]).to eq(404)
 
       expect(error_vendor).to have_key(:errors)
       expect(error_vendor[:errors]).to be_an(Array)
-
       expect(response.body).to include("Couldn't find Vendor with 'id'=")
     end
   end
