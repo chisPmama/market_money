@@ -42,16 +42,15 @@ describe "Markets API" do
   
         expect(market).to have_key(:lon)
         expect(market[:lon]).to be_a(String)
-  
       end
     end
   
       it "can return an attribute of vendor count" do
         markets = JSON.parse(response.body, symbolize_names: true)[:data]
-        create_list(:vendor, 3)
-        binding.pry
-        
+
         markets.each do |market|
+          market = market[:attributes]
+
           expect(market).to have_key(:vendor_count)
           expect(market[:vendor_count]).to be_a(Integer)
         end
