@@ -43,6 +43,20 @@ describe "Vendors API" do
         expect(vendor).to have_key(:credit_accepted)
         expect(vendor[:credit_accepted]).to be_kind_of(TrueClass).or be_kind_of(FalseClass)
       end
+
+    end
+
+    it "return an error status: 404 (sad path)" do
+      get "/api/v0/markets/123123123123/vendors"
+      error_market = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(error_market).to have_key(:status)
+      expect(error_market[:status]).to eq(404)
+
+      expect(error_market).to have_key(:errors)
+      expect(error_market[:errors]).to be_an(Array)
+
+      expect(response.body).to include("Couldn't find Market with 'id'=")
     end
 
   end
