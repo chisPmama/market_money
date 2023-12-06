@@ -101,7 +101,12 @@ describe "Markets API" do
 
     it "return an error status: 404 (sad path)" do
       get "/api/v0/markets/123123123123"
+      error_market = JSON.parse(response.body, symbolize_names: true)
       
+      expect(error_market).to have_key(:errors)
+      expect(error_market[:errors]).to be_an(Array)
+
+      expect(response.body).to include("Couldn't find Market with 'id'=")
     end
   end
 
