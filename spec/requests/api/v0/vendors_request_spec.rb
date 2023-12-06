@@ -13,6 +13,7 @@ describe "Vendors API" do
       MarketVendor.create(market_id:market1.id, vendor_id:vendor3.id)
     
       get "/api/v0/markets/#{market1.id}/vendors"
+      
 
     end
 

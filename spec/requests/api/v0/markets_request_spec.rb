@@ -103,6 +103,9 @@ describe "Markets API" do
       get "/api/v0/markets/123123123123"
       error_market = JSON.parse(response.body, symbolize_names: true)
       
+      expect(error_market).to have_key(:status)
+      expect(error_market[:status]).to eq(404)
+
       expect(error_market).to have_key(:errors)
       expect(error_market[:errors]).to be_an(Array)
 
