@@ -49,7 +49,7 @@ describe "Vendors API" do
     it "return an error status: 404 (sad path)" do
       get "/api/v0/markets/123123123123/vendors"
       error_market = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(error_market).to have_key(:status)
       expect(error_market[:status]).to eq(404)
 
@@ -58,6 +58,36 @@ describe "Vendors API" do
 
       expect(response.body).to include("Couldn't find Market with 'id'=")
     end
+  end
 
+  describe 'Get One Vendor' do
+    it "can get one vendor by its id (happy path)" do
+      id = create(:vendor).id
+      get "/api/v0/vendors/#{id}"
+      vendor = JSON.parse(response.body, symbolize_names: true)
+      vendor = vendor[:data]
+  
+      expect(response).to be_successful
+  
+      expect(vendor).to have_key(:id)
+      expect(vendor[:id]).to be_an(String)
+  
+      vendor = vendor[:attributes]
+  
+      expect(vendor).to have_key(:name)
+      expect(vendor[:name]).to be_an(String)
+  
+      expect(vendor).to have_key(:description)
+      expect(vendor[:description]).to be_an(String)
+  
+      expect(vendor).to have_key(:contact_name)
+      expect(vendor[:contact_name]).to be_an(String)
+  
+      expect(vendor).to have_key(:contact_phone)
+      expect(vendor[:contact_phone]).to be_an(String)
+  
+      expect(vendor).to have_key(:credit_accepted)
+      expect(vendor[:credit_accepted]).to be_kind_of(TrueClass).or be_kind_of(FalseClass)
+    end
   end
 end
