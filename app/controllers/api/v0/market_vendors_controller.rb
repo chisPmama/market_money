@@ -4,7 +4,8 @@ class Api::V0::MarketVendorsController < ApplicationController
 
   def create
     begin
-      render json: MarketVendorSerializer.new(MarketVendor.create!(market_vendor_params)), status: 201
+      MarketVendorSerializer.new(MarketVendor.create!(market_vendor_params))
+      render json: {message: 'Successfully added vendor to market'}, status: :created
     rescue ActiveRecord::RecordInvalid => exception
       unprocessable_response(exception)
     end
