@@ -26,20 +26,19 @@ class Api::V0::VendorsController < ApplicationController
     begin
       render json: VendorSerializer.new(Vendor.create!(vendor_params)), status: 201
     rescue ActiveRecord::RecordInvalid => exception
-      render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 400))
-      .serialize_json, status: 400
+      unprocessable_response(exception)
     end
   end
 
   def update
     begin
-      render json: VendorSerializer.new(Vendor.update(params[:id],vendor_params))
+      render json: VendorSerializer.new(Vendor.update!(params[:id],vendor_params))
     rescue ActiveRecord::RecordNotFound => exception
       render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 404))
       .serialize_json, status: :not_found
     rescue ActiveRecord::RecordInvalid => exception
       render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 400))
-      .serialize_json, status: :unprocessable_entity
+      .serialize_json, status: 400
     end
   end
 
@@ -52,11 +51,11 @@ class Api::V0::VendorsController < ApplicationController
 
   def unprocessable_response(exception)
     render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 400))
-    .serialize_json, status: :unprocessable_entity
+    .serialize_json, status: 400
   end
 
   def vendor_params
-    params.require(:vendor).permit(:name, :description, :contact_name, :contact_phone, :credit_accepted ).reject{|k, v| v.blank?}
+    params.require(:vendor).permit(:name, :description, :contact_name, :contact_phone, :credit_accepted )
   end
 
 end

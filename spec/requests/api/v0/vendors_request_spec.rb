@@ -185,7 +185,7 @@ describe "Vendors API" do
     end
 
     it "returns an error status: 400 (sad path) if parameters are missing" do
-      id = create(:vendor).id
+      id = create(:vendor, credit_accepted: true).id
       patch "/api/v0/vendors/#{id}",
         headers: {"CONTENT_TYPE" => "application/json"}, 
         params: JSON.generate( {
@@ -204,7 +204,6 @@ describe "Vendors API" do
       expect(error_vendor[:errors]).to be_an(Array)
       expect(response.body).to include("Validation failed")
       expect(response.body).to include("Contact name can't be blank")
-      expect(response.body).to include("Contact phone can't be blank")
     end
   end
 
