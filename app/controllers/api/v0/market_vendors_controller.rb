@@ -20,7 +20,7 @@ class Api::V0::MarketVendorsController < ApplicationController
 
   def unprocessable_response(exception)
     render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 400))
-    .serialize_json, status: :bad_request
+    .serialize_json, status: :not_found
   end
 
   def market_vendor_params
