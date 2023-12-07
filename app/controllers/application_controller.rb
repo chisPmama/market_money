@@ -18,7 +18,7 @@ class ApplicationController < ActionController::API
   end
 
   def unprocessable_response_404(exception)
-    render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 400))
+    render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 404))
     .serialize_json, status: :not_found
   end
 end
