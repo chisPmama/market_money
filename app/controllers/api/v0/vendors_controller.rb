@@ -8,8 +8,7 @@ class Api::V0::VendorsController < ApplicationController
       market_vendors = market.vendors
       render json: VendorSerializer.new(market_vendors)
     rescue ActiveRecord::RecordNotFound => exception
-      render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 404))
-      .serialize_json, status: :not_found
+      not_found_response(exception)
     end
   end
 
@@ -17,8 +16,7 @@ class Api::V0::VendorsController < ApplicationController
     begin
       render json: VendorSerializer.new(Vendor.find(params[:id]))
     rescue ActiveRecord::RecordNotFound => exception
-      render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 404))
-      .serialize_json, status: :not_found
+      not_found_response(exception)
     end
   end
 
@@ -34,11 +32,9 @@ class Api::V0::VendorsController < ApplicationController
     begin
       render json: VendorSerializer.new(Vendor.update!(params[:id],vendor_params))
     rescue ActiveRecord::RecordNotFound => exception
-      render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 404))
-      .serialize_json, status: :not_found
+      not_found_response(exception)
     rescue ActiveRecord::RecordInvalid => exception
-      render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 400))
-      .serialize_json, status: 400
+      unprocessable_response(exception)
     end
   end
 
