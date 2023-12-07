@@ -91,5 +91,32 @@ describe "Market Vendors API" do
       expect(MarketVendor.count).to eq(0)
       expect(response.body.blank?).to eq(true)
     end
+
+    it "can return a 422 error when a Market Vendor does not exist (sad path)" do
+      create(:vendor, id: 1)
+      create(:market, id: 1)
+      create(:market_vendor, market_id: 1, vendor_id: 1)
+
+      expect(MarketVendor.count).to eq(1)
+
+      delete "/api/v0/market_vendors",
+      headers: {"CONTENT_TYPE" => "application/json"}, 
+      params: JSON.generate( {
+        "market_vendor": {
+                          "market_id": 12345,
+                          "vendor_id": 12345
+                         }
+      })
+
+      expect(MarketVendor.count).to eq(1)
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
+      expect(response.body).to include("Validation failed: Market vendor asociation between market with market_id=")
+    end
+
+    xit "can return a 204 error when a Market Vendor cannot be found (204)" do
+
+
+    end
   end
 end
