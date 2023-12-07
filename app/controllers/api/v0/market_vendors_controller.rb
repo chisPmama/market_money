@@ -10,25 +10,18 @@ class Api::V0::MarketVendorsController < ApplicationController
 
     return unprocessable_entity(market_id, vendor_id) if market_vendor.present?
 
-    begin
-      MarketVendorSerializer.new(MarketVendor.create!(market_vendor_params))
-      render json: {message: 'Successfully added vendor to market'}, status: :created
-    rescue ActiveRecord::RecordInvalid => exception
-      unprocessable_response(exception)
-    end
+    MarketVendorSerializer.new(MarketVendor.create!(market_vendor_params))
+    render json: {message: 'Successfully added vendor to market'}, status: :created
   end
 
   def destroy
-    market_id = params[:market_vendor][:market_id]
-    vendor_id = params[:market_vendor][:vendor_id]
-    market_vendor = MarketVendor.find_by(market_id: market_id, vendor_id: vendor_id)
+    market_vendor = MarketVendor.find_by(market_vendor_params)
+    market_vendor_params
     
-    if market_vendor.present?
-      market_vendor.destroy
-      head :no_content
-    else
-      unprocessable_entity(market_id, vendor_id)
-    end
+    return not_found_response(not_found_message) if market_vendor.nil?
+
+    market_vendor.destroy
+    head :no_content
   end
 
   private
@@ -44,12 +37,18 @@ class Api::V0::MarketVendorsController < ApplicationController
   end
 
   def not_found_response(exception)
-    render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 404))
+    render json: ErrorSerializer.new(ErrorMessage.new(exception, 404))
     .serialize_json, status: :not_found
   end
 
   def market_vendor_params
     params.require(:market_vendor).permit(:market_id, :vendor_id )
+  end
+
+  def not_found_message
+    array = market_vendor_params.to_h.to_a
+    string = array.map{|pair| pair.join("=")}.join(" AND ")
+    "Validation failed: Market vendor asociation between market with #{string}"
   end
 
 

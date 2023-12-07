@@ -110,7 +110,7 @@ describe "Market Vendors API" do
 
       expect(MarketVendor.count).to eq(1)
       expect(response).to_not be_successful
-      expect(response.status).to eq(422)
+      expect(response.status).to eq(404)
       expect(response.body).to include("Validation failed: Market vendor asociation between market with market_id=")
     end
 
