@@ -5,4 +5,5 @@ class ErrorMessage
     @message = message
     @status_code = status_code
   end
+
 end

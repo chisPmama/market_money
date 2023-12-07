@@ -41,7 +41,7 @@ describe "Vendors API" do
         expect(vendor[:contact_phone]).to be_an(String)
 
         expect(vendor).to have_key(:credit_accepted)
-        expect(vendor[:credit_accepted]).to be_kind_of(TrueClass).or be_kind_of(FalseClass)
+        expect(vendor[:credit_accepted]).to be_a(TrueClass).or be_a(FalseClass)
       end
 
     end
@@ -86,7 +86,7 @@ describe "Vendors API" do
       expect(vendor[:contact_phone]).to be_an(String)
   
       expect(vendor).to have_key(:credit_accepted)
-      expect(vendor[:credit_accepted]).to be_kind_of(TrueClass).or be_kind_of(FalseClass)
+      expect(vendor[:credit_accepted]).to be_a(TrueClass).or be_a(FalseClass)
     end
 
     it "return an error status: 404 (sad path)" do
@@ -103,7 +103,7 @@ describe "Vendors API" do
   end
 
   describe "Create a Vendor" do
-    it "can create a new vendor" do
+    it "can create a new vendor (happy path)" do
       vendor_params = ({
                         name: 'ChisP Supplier for Dog Treats and Human Produce',
                         description: 'A place for bad dogs and good humans',
@@ -116,11 +116,35 @@ describe "Vendors API" do
       created_vendor = Vendor.last
 
       expect(response).to be_successful
+      expect(response.status).to eq(201)
+
       expect(created_vendor.name).to eq(vendor_params[:name])
       expect(created_vendor.description).to eq(vendor_params[:description])
       expect(created_vendor.contact_name).to eq(vendor_params[:contact_name])
       expect(created_vendor.contact_phone).to eq(vendor_params[:contact_phone])
       expect(created_vendor.credit_accepted).to eq(vendor_params[:credit_accepted])
+    end
+
+    it "will return an error if an attribute is missing (sad path)" do
+      vendor_params = ({
+                        name: 'ChisP Supplier for Dog Treats and Human Produce',
+                        description: 'A place for bad dogs and good humans',
+                        credit_accepted: true
+                      })
+      headers = {"CONTENT_TYPE" => "application/json"}
+      post "/api/v0/vendors", headers: headers, params: JSON.generate(vendor: vendor_params)
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      error_vendor = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(error_vendor).to have_key(:errors)
+      expect(error_vendor[:errors]).to be_an(Array)
+      expect(response.body).to include("Validation failed")
+      expect(response.body).to include("Contact name can't be blank")
+      expect(response.body).to include("Contact phone can't be blank")
+
     end
   
   end

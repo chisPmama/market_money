@@ -22,7 +22,14 @@ class Api::V0::VendorsController < ApplicationController
   end
 
   def create
-    render json: Vendor.create(vendor_params)
+    missing = Vendor.missing_params(vendor_params)
+    
+    if missing.nil?
+      render json: VendorSerializer.new(Vendor.create!(vendor_params)), status: 201
+    else
+      render json: ErrorSerializer.new(ErrorMessage.new(missing, 400))
+      .serialize_json, status: 400
+    end
   end
 
   private
@@ -35,4 +42,5 @@ class Api::V0::VendorsController < ApplicationController
   def vendor_params
     params.require(:vendor).permit(:name, :description, :contact_name, :contact_phone, :credit_accepted )
   end
+
 end
