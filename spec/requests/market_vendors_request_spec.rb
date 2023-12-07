@@ -18,6 +18,12 @@ describe "Market Vendors API" do
 
       expect(created_market_vendor.market_id).to eq(1)
       expect(created_market_vendor.vendor_id).to eq(1)
+
+      response_JSON = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(response.body).to include('Successfully added vendor to market')
+      expect(response_JSON).to have_key(:message)
+      expect(response_JSON[:message]).to be_a(String)
     end
 
   end
