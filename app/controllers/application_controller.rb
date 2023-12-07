@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
 
   def unprocessable_response(exception)
     render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 400))
-    .serialize_json, status: :not_found
+    .serialize_json, status: :bad_request
   end
 
   def unprocessable_entity(exception)
@@ -14,6 +14,11 @@ class ApplicationController < ActionController::API
 
   def not_found_response(exception)
     render json: ErrorSerializer.new(ErrorMessage.new(exception, 404))
+    .serialize_json, status: :not_found
+  end
+
+  def unprocessable_response_404(exception)
+    render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 400))
     .serialize_json, status: :not_found
   end
 end

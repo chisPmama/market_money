@@ -1,5 +1,6 @@
 class Api::V0::MarketVendorsController < ApplicationController
-  
+  rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_response_404
+
   def create
     market_vendor = MarketVendor.find_by(market_vendor_params)
 
