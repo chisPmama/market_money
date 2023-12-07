@@ -26,7 +26,7 @@ describe "Market Vendors API" do
       expect(response_JSON[:message]).to be_a(String)
     end
 
-    it "returns an error status: 404 (sad path)" do
+    it "returns an error status, invalid parameter: 404 (sad path)" do
       create(:vendor, id: 1)
       create(:market, id: 1)
       market_vendor_params = ({
@@ -44,6 +44,28 @@ describe "Market Vendors API" do
       expect(error_vendor).to have_key(:errors)
       expect(error_vendor[:errors]).to be_an(Array)
       expect(response.body).to include("Validation failed: Market must exist")
+    end
+
+    it "returns an error status, already exists: 422 (sad path)" do
+      create(:vendor, id: 1)
+      create(:market, id: 1)
+      create(:market_vendor, market_id: 1, vendor_id: 1)
+
+      market_vendor_params = ({
+                                "market_id": 1,
+                                "vendor_id": 1
+                           })
+      headers = {"CONTENT_TYPE" => "application/json"}
+      post "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: market_vendor_params)
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(422)
+
+      error_vendor = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_vendor).to have_key(:errors)
+      expect(error_vendor[:errors]).to be_an(Array)
+      expect(response.body).to include("Validation failed: Market vendor asociation between market with market_id=1 and vendor_id=1 already exists")
     end
   end
 
