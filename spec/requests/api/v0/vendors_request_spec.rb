@@ -163,6 +163,49 @@ describe "Vendors API" do
       expect(vendor.name).to_not eq(vendor_name)
       expect(vendor.name).to eq("Coconut and Benny Mudpiles")
     end
+
+    it "returns an error status: 404 (sad path)" do
+      patch "/api/v0/vendors/123123123123",
+        headers: {"CONTENT_TYPE" => "application/json"}, 
+        params: JSON.generate( {
+          "vendor": {
+                      "contact_name": "CandyMan",
+                      "credit_accepted": false
+                    }
+        })
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+
+      error_vendor = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_vendor).to have_key(:errors)
+      expect(error_vendor[:errors]).to be_an(Array)
+      expect(response.body).to include("Couldn't find Vendor with 'id'=")
+    end
+
+    it "returns an error status: 400 (sad path) if parameters are missing" do
+      id = create(:vendor).id
+      patch "/api/v0/vendors/#{id}",
+        headers: {"CONTENT_TYPE" => "application/json"}, 
+        params: JSON.generate( {
+          "vendor": {
+                      "contact_name": "",
+                      "credit_accepted": false
+                    }
+        })
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      error_vendor = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_vendor).to have_key(:errors)
+      expect(error_vendor[:errors]).to be_an(Array)
+      expect(response.body).to include("Validation failed")
+      expect(response.body).to include("Contact name can't be blank")
+      expect(response.body).to include("Contact phone can't be blank")
+    end
   end
 
 end
