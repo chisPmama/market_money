@@ -47,7 +47,7 @@ class Api::V0::VendorsController < ApplicationController
 
   def unprocessable_response(exception)
     render json: ErrorSerializer.new(ErrorMessage.new(exception.message, 400))
-    .serialize_json, status: 400
+    .serialize_json, status: :bad_request
   end
 
   def vendor_params
