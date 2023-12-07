@@ -65,7 +65,7 @@ describe "Market Vendors API" do
 
       expect(error_vendor).to have_key(:errors)
       expect(error_vendor[:errors]).to be_an(Array)
-      expect(response.body).to include("Validation failed: Market vendor asociation between market with market_id=1 and vendor_id=1 already exists")
+      expect(response.body).to include("Validation failed: Market vendor association between market with market_id=1 and vendor_id=1 already exists")
     end
   end
 
@@ -111,7 +111,7 @@ describe "Market Vendors API" do
       expect(MarketVendor.count).to eq(1)
       expect(response).to_not be_successful
       expect(response.status).to eq(404)
-      expect(response.body).to include("Validation failed: Market vendor asociation between market with market_id=")
+      expect(response.body).to include("No MarketVendor with market_id=")
     end
 
     xit "can return a 204 error when a Market Vendor cannot be found (204)" do
