@@ -39,7 +39,12 @@ class Api::V0::VendorsController < ApplicationController
   end
 
   def destroy
-    render json: Vendor.delete(params[:id])
+    Vendor.find(params[:id])
+    begin
+      render json: Vendor.delete(params[:id]), status: 204
+    rescue ActiveRecord::RecordNotFound => exception
+      not_found_response(exception)
+    end
   end
 
   private

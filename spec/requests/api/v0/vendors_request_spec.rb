@@ -214,8 +214,22 @@ describe "Vendors API" do
       delete "/api/v0/vendors/#{vendor.id}"
 
       expect(response).to be_successful
+      expect(response.status).to eq(204)
       expect(Vendor.count).to eq(0)
       expect{Vendor.find(vendor.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it "can return an error if ID is invalid (sad path)" do
+      delete "/api/v0/vendors/12121212"
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+
+      error_vendor = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_vendor).to have_key(:errors)
+      expect(error_vendor[:errors]).to be_an(Array)
+      expect(response.body).to include("Couldn't find Vendor with 'id'=")
     end
   end
 end
