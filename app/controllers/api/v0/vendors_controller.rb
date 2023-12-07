@@ -38,6 +38,10 @@ class Api::V0::VendorsController < ApplicationController
     end
   end
 
+  def destroy
+    render json: Vendor.delete(params[:id])
+  end
+
   private
 
   def not_found_response(exception)
