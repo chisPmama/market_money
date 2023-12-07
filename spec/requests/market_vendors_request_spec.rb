@@ -69,4 +69,27 @@ describe "Market Vendors API" do
     end
   end
 
+  describe "Destroy a MarketVendor" do
+    it "can destroy an existing market vendor and not send back a response" do
+      create(:vendor, id: 1)
+      create(:market, id: 1)
+      create(:market_vendor, market_id: 1, vendor_id: 1)
+
+      expect(MarketVendor.count).to eq(1)
+
+      delete "/api/v0/market_vendors",
+      headers: {"CONTENT_TYPE" => "application/json"}, 
+      params: JSON.generate( {
+        "market_vendor": {
+                          "market_id": 1,
+                          "vendor_id": 1
+                         }
+      })
+
+      expect(response).to be_successful
+      expect(response.status).to eq(204)
+      expect(MarketVendor.count).to eq(0)
+      expect(response.body.blank?).to eq(true)
+    end
+  end
 end

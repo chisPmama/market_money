@@ -21,6 +21,18 @@ class Api::V0::MarketVendorsController < ApplicationController
     end
   end
 
+  def destroy
+    market_id = params[:market_vendor][:market_id]
+    vendor_id = params[:market_vendor][:vendor_id]
+
+    market_vendor = MarketVendor.find_by(market_id: market_id, vendor_id: vendor_id)
+
+    if market_vendor.present?
+      market_vendor.destroy
+      head :no_content
+    end
+  end
+
   private
 
   def unprocessable_response(exception)

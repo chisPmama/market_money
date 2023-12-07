@@ -21,6 +21,53 @@
         "branches": {
         }
       },
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/controllers/api/v0/market_vendors_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      },
       "/Users/sleazypete/turing_work/3mod/projects/market_money/app/controllers/api/v0/markets_controller.rb": {
         "lines": [
           0,
@@ -66,18 +113,7 @@
           0,
           0,
           0,
-          0,
           null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
           0,
           0,
           0,
@@ -90,6 +126,20 @@
           0,
           0,
           0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
           0,
           0,
           0,
@@ -250,6 +300,20 @@
         "branches": {
         }
       },
+      "/Users/sleazypete/turing_work/3mod/projects/market_money/app/serializers/market_vendor_serializer.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      },
       "/Users/sleazypete/turing_work/3mod/projects/market_money/app/serializers/vendor_serializer.rb": {
         "lines": [
           0,
@@ -263,6 +327,6 @@
         }
       }
     },
-    "timestamp": 1701915972
+    "timestamp": 1701939547
   }
 }
