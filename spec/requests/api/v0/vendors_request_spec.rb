@@ -46,7 +46,7 @@ describe "Vendors API" do
 
     end
 
-    it "return an error status: 404 (sad path)" do
+    it "returns an error status: 404 (sad path)" do
       get "/api/v0/markets/123123123123/vendors"
       expect(response).to_not be_successful
       expect(response.status).to eq(404)
@@ -144,9 +144,25 @@ describe "Vendors API" do
       expect(response.body).to include("Validation failed")
       expect(response.body).to include("Contact name can't be blank")
       expect(response.body).to include("Contact phone can't be blank")
-
     end
+  end
+
+  describe 'Update a Vendor' do
+    it "can update an existing vendor" do
+      id = create(:vendor).id
+      vendor_name = Vendor.last.name
+      vendor_params = {name: "Coconut and Benny Mudpiles"}
+      headers = {"CONTENT_TYPE" => "application/json"}
   
+      patch "/api/v0/vendors/#{id}", headers: headers, params: JSON.generate({vendor: vendor_params})
+      vendor = Vendor.find_by(id: id)
+  
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+  
+      expect(vendor.name).to_not eq(vendor_name)
+      expect(vendor.name).to eq("Coconut and Benny Mudpiles")
+    end
   end
 
 end
