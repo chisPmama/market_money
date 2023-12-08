@@ -225,6 +225,19 @@ describe "Markets API" do
         expect(error_market[:errors]).to be_an(Array)
         expect(response.body).to include("Invalid set of parameters. Please provide a valid set of parameters to perform a search with this endpoint.")      
       end
+
+      it 'does not work for city and name' do
+        get "/api/v0/markets/search?city=albuquerque&name=Nob hill"
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(422)
+  
+        error_market = JSON.parse(response.body, symbolize_names: true)
+
+        expect(error_market).to have_key(:errors)
+        expect(error_market[:errors]).to be_an(Array)
+        expect(response.body).to include("Invalid set of parameters. Please provide a valid set of parameters to perform a search with this endpoint.")      
+      end
     end
   end
 
