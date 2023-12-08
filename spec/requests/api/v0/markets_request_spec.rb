@@ -219,11 +219,11 @@ describe "Markets API" do
         expect(response).to_not be_successful
         expect(response.status).to eq(422)
   
-        search_market = JSON.parse(response.body, symbolize_names: true)[:data]
-        search_market = search_market.first
-  
-        expect(search_market).to have_key(:id)
-        expect(search_market[:id]).to eq(@market1.id.to_s)   
+        error_market = JSON.parse(response.body, symbolize_names: true)
+
+        expect(error_market).to have_key(:errors)
+        expect(error_market[:errors]).to be_an(Array)
+        expect(response.body).to include("Invalid set of parameters. Please provide a valid set of parameters to perform a search with this endpoint.")      
       end
     end
   end
