@@ -20,6 +20,20 @@ class Api::V0::MarketsController < ApplicationController
     render json: MarketSerializer.new(search_results)
   end
 
+  # def nearest_atms
+  #   market = Market.find(params[:market_id])
+  #   conn = Farraday.new(url: "https://api.tomtom.com/search/2/categorySearch/") do |faraday|
+  #     faraday.params["key"] = ENV["API_KEY"]
+  #     faraday.params["lat"] = market.lat
+  #     faraday.params["lon"] = market.lon
+  #     faraday.params["municipality"] = market.city
+  #     faraday.params["streetName"] = market.street
+  #   end
+
+  #   faraday.params["lat"] = market.lat
+
+  # end
+
   private
 
   def search_params
