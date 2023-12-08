@@ -22,16 +22,16 @@ class Api::V0::MarketsController < ApplicationController
 
   # def nearest_atms
   #   market = Market.find(params[:market_id])
-  #   conn = Farraday.new(url: "https://api.tomtom.com/search/2/categorySearch/") do |faraday|
+  #   conn = Faraday.new(url: "https://api.tomtom.com") do |faraday|
   #     faraday.params["key"] = ENV["API_KEY"]
   #     faraday.params["lat"] = market.lat
   #     faraday.params["lon"] = market.lon
   #     faraday.params["municipality"] = market.city
-  #     faraday.params["streetName"] = market.street
+
   #   end
 
-  #   faraday.params["lat"] = market.lat
-
+  #   response = conn.get("search/2/search/cash_dispenser.json")
+  #   json = JSON.parse(response.body, symbolize_names: true)
   # end
 
   private
