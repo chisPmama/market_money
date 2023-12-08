@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2023-12-08T01:09:14-06:00">2023-12-08T01:09:14-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2023-12-08T08:35:02-06:00">2023-12-08T08:35:02-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -381,7 +381,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#efe72bed2bd44629ea378764a28cdffda30f54b5" class="src_link" title="spec/requests/api/v0/nearest_atms_request_spec.rb">spec/requests/api/v0/nearest_atms_request_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">27</td>
+            <td class="cell--number">32</td>
             <td class="cell--number">0</td>
             <td class="cell--number">0</td>
             <td class="cell--number">0</td>
@@ -1196,7 +1196,7 @@
 
             
 
-            <code class="ruby">  #   conn = Farraday.new(url: &quot;https://api.tomtom.com/search/2/categorySearch/&quot;) do |faraday|</code>
+            <code class="ruby">  #   conn = Faraday.new(url: &quot;https://api.tomtom.com&quot;) do |faraday|</code>
           </li>
         </div>
       
@@ -1251,7 +1251,7 @@
 
             
 
-            <code class="ruby">  #     faraday.params[&quot;streetName&quot;] = market.street</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1284,7 +1284,7 @@
 
             
 
-            <code class="ruby">  #   faraday.params[&quot;lat&quot;] = market.lat</code>
+            <code class="ruby">  #   response = conn.get(&quot;search/2/search/cash_dispenser.json&quot;)</code>
           </li>
         </div>
       
@@ -1295,7 +1295,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  #   json = JSON.parse(response.body, symbolize_names: true)</code>
           </li>
         </div>
       
@@ -10404,7 +10404,7 @@
 
             
 
-            <code class="ruby">#     market_params = ({</code>
+            <code class="ruby">#     market = create(:market, lat: &quot;35.077529&quot;,</code>
           </li>
         </div>
       
@@ -10415,7 +10415,7 @@
 
             
 
-            <code class="ruby">#                       name: &quot;Nob Hill Growers&#39; Market&quot;,</code>
+            <code class="ruby">#                              lon: &quot;-106.600449&quot;)</code>
           </li>
         </div>
       
@@ -10426,7 +10426,7 @@
 
             
 
-            <code class="ruby">#                       street: &quot;Lead &amp; Morningside SE&quot;,</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -10437,7 +10437,7 @@
 
             
 
-            <code class="ruby">#                       city: &quot;Albuquerque&quot;,</code>
+            <code class="ruby">#     get &quot;/api/v0/markets/#{market.id}/nearest_atms&quot;</code>
           </li>
         </div>
       
@@ -10448,7 +10448,7 @@
 
             
 
-            <code class="ruby">#                       county: &quot;Bernalillo&quot;,</code>
+            <code class="ruby">#   end</code>
           </li>
         </div>
       
@@ -10459,7 +10459,7 @@
 
             
 
-            <code class="ruby">#                       state: &quot;New Mexico&quot;,</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -10470,7 +10470,7 @@
 
             
 
-            <code class="ruby">#                       zip: &quot;null&quot;,</code>
+            <code class="ruby">#   xit &quot;can return the closest ATM to the market&quot; do</code>
           </li>
         </div>
       
@@ -10481,7 +10481,7 @@
 
             
 
-            <code class="ruby">#                       lat: &quot;35.077529&quot;,</code>
+            <code class="ruby">#     expect(response).to be_successful</code>
           </li>
         </div>
       
@@ -10492,7 +10492,7 @@
 
             
 
-            <code class="ruby">#                       lon: &quot;-106.600449&quot;</code>
+            <code class="ruby">#     expect(response.status).to eq(200)</code>
           </li>
         </div>
       
@@ -10503,7 +10503,7 @@
 
             
 
-            <code class="ruby">#                     })</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -10514,7 +10514,7 @@
 
             
 
-            <code class="ruby">#     headers = {&quot;CONTENT_TYPE&quot; =&gt; &quot;application/json&quot;}</code>
+            <code class="ruby">#     atms = JSON.parse(response.body, symbolize_names: true)[:data]</code>
           </li>
         </div>
       
@@ -10525,7 +10525,7 @@
 
             
 
-            <code class="ruby">#     @market = Market.create!(market_params)</code>
+            <code class="ruby">#     binding.pry</code>
           </li>
         </div>
       
@@ -10536,7 +10536,7 @@
 
             
 
-            <code class="ruby">#     get &quot;/api/v0/markets/#{@market.id}/nearest_atms&quot;, headers: headers</code>
+            <code class="ruby">#     expect(atms).to have_key(:id)</code>
           </li>
         </div>
       
@@ -10547,7 +10547,7 @@
 
             
 
-            <code class="ruby">#   end</code>
+            <code class="ruby">#     # expect(atms[:id]).to be_an(Null)</code>
           </li>
         </div>
       
@@ -10569,7 +10569,7 @@
 
             
 
-            <code class="ruby">#   xit &quot;can return the closest ATM to the market&quot; do</code>
+            <code class="ruby">#     # expect(atms).to have_key(:type)</code>
           </li>
         </div>
       
@@ -10580,7 +10580,7 @@
 
             
 
-            <code class="ruby">#     expect(response).to be_successful</code>
+            <code class="ruby">#     # expect(atms[:type]).to eq(&quot;atm&quot;)</code>
           </li>
         </div>
       
@@ -10591,7 +10591,7 @@
 
             
 
-            <code class="ruby">#     expect(response.status).to eq(200)</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -10602,7 +10602,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">#     atms = atms.first[:attributes]</code>
           </li>
         </div>
       
@@ -10613,7 +10613,7 @@
 
             
 
-            <code class="ruby">#     atms = JSON.parse(response.body, symbolize_names: true)[:data]</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -10624,7 +10624,7 @@
 
             
 
-            <code class="ruby">#     # binding.pry</code>
+            <code class="ruby">#     expect(atms).to have_key(:name)</code>
           </li>
         </div>
       
@@ -10635,12 +10635,67 @@
 
             
 
-            <code class="ruby">#   end</code>
+            <code class="ruby">#     expect(atms[:name]).to eq(&quot;ATM&quot;)</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="27">
+            
+            
+
+            
+
+            <code class="ruby">#     # expect(atms[:address]).to eq(&quot;3902 Central Avenue Southeast, Albuquerque, NM 87108&quot;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="28">
+            
+            
+
+            
+
+            <code class="ruby">#     expect(atms[:lat]).to eq(35.077529)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="29">
+            
+            
+
+            
+
+            <code class="ruby">#     expect(atms[:lon]).to eq(-106.600449)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="30">
+            
+            
+
+            
+
+            <code class="ruby">#     expect(atms[:distance]).to eq(0)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="31">
+            
+            
+
+            
+
+            <code class="ruby">#   end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="32">
             
             
 
