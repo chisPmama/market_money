@@ -113,4 +113,46 @@ describe "Markets API" do
     end
   end
 
+  describe 'Search Markets by state, city, and/or name' do
+    before :each do
+      @market1 = create(:market, name: "Nob Hill Growers' Market",
+                                city: "Albuquerque",
+                                state: "New Mexico")
+      @market2 = create(:market, name: "ChisP Paw Paw Shoppe",
+                                city: "Chicago",
+                                state: "Illinois")
+      @market3 = create(:market, name: "Hueco Mountain Hut",
+                                city: "El Paso",
+                                state: "Texas")
+
+      market_vendors = []
+
+      5.times do 
+        market_vendors << create(:vendor)
+      end
+      market_vendors.each do |mv|
+        MarketVendor.create(market_id:@market1.id, vendor_id:mv.id)
+      end
+    end
+
+    it 'can take a direct query of city, state, and part of name for market search' do
+      get "/api/v0/markets/search?city=albuquerque&state=new Mexico&name=Nob hill"
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      search_market = JSON.parse(response.body, symbolize_names: true)[:data]
+      search_market = search_market[:attributes]
+
+      expect(search_market).to have_key(:id)
+      expect(error_market[:id]).to eq(@market1.id.to_s)
+
+      expect(search_market).to have_key(:name)
+      expect(error_market[:name]).to eq("Nob Hill Growers' Market")
+
+      expect(search_market).to have_key(:vendor_count)
+      expect(error_market[:vendor_count]).to eq(5)     
+    end
+  end
+
 end

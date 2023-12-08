@@ -114,9 +114,5 @@ describe "Market Vendors API" do
       expect(response.body).to include("No MarketVendor with market_id=")
     end
 
-    xit "can return a 204 error when a Market Vendor cannot be found (204)" do
-
-
-    end
   end
 end
