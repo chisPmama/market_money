@@ -11,6 +11,8 @@ class Api::V0::MarketsController < ApplicationController
   def search
     search_results = Market.all
 
+    return unprocessable_entity(invalid_search_msg) if invalid_search?
+
     search_results = state_filter(search_results, search_params[:state])
     search_results = city_filter(search_results, search_params[:city])
     search_results = name_filter(search_results, search_params[:name])
@@ -40,6 +42,18 @@ class Api::V0::MarketsController < ApplicationController
     return query if name_search.blank?
 
     query.where("lower(name) like ?", "%#{search_params[:name].downcase}%")
+  end
+
+  def invalid_search_msg
+    "Invalid set of parameters. Please provide a valid set of parameters to perform a search with this endpoint."
+  end
+
+  def invalid_search?
+    invalid_params = [["city"],["city","name"]]
+    query_params = params.keys
+    query_params.delete("controller")
+    query_params.delete("action")
+    invalid_params.include?(query_params)
   end
 
 end
