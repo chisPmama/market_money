@@ -142,16 +142,20 @@ describe "Markets API" do
       expect(response.status).to eq(200)
 
       search_market = JSON.parse(response.body, symbolize_names: true)[:data]
-      search_market = search_market[:attributes]
+      
+      search_market = search_market.first
 
       expect(search_market).to have_key(:id)
-      expect(error_market[:id]).to eq(@market1.id.to_s)
+      expect(search_market[:id]).to eq(@market1.id.to_s)
+      
+      search_market = search_market[:attributes]
+
 
       expect(search_market).to have_key(:name)
-      expect(error_market[:name]).to eq("Nob Hill Growers' Market")
+      expect(search_market[:name]).to eq("Nob Hill Growers' Market")
 
       expect(search_market).to have_key(:vendor_count)
-      expect(error_market[:vendor_count]).to eq(5)     
+      expect(search_market[:vendor_count]).to eq(5)     
     end
   end
 

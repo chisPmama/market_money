@@ -12,7 +12,6 @@ class Api::V0::MarketVendorsController < ApplicationController
 
   def destroy
     market_vendor = MarketVendor.find_by(market_vendor_params)
-    market_vendor_params
     
     return not_found_response(not_found_message) if market_vendor.nil?
 
