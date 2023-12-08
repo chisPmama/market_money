@@ -188,6 +188,43 @@ describe "Markets API" do
         expect(search_market).to have_key(:id)
         expect(search_market[:id]).to eq(@market1.id.to_s) 
       end
+
+      it "works for name only" do
+        get "/api/v0/markets/search?name=Nob hill"
+  
+        search_market = JSON.parse(response.body, symbolize_names: true)[:data]
+        search_market = search_market.first
+  
+        expect(search_market).to have_key(:id)
+        expect(search_market[:id]).to eq(@market1.id.to_s) 
+      end
+
+      it "searching parameters, but no returns" do
+        get "/api/v0/markets/search?name=Test"
+
+        expect(response).to be_successful
+        expect(response.status).to eq(200)
+  
+        search_market = JSON.parse(response.body, symbolize_names: true)[:data]
+  
+        expect(search_market).to be_an(Array)
+        expect(search_market).to be_empty
+      end
+    end
+
+    describe 'Sad Paths for Queries' do
+      it 'does not work for city only' do
+        get "/api/v0/markets/search?city=albuquerque"
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(422)
+  
+        search_market = JSON.parse(response.body, symbolize_names: true)[:data]
+        search_market = search_market.first
+  
+        expect(search_market).to have_key(:id)
+        expect(search_market[:id]).to eq(@market1.id.to_s)   
+      end
     end
   end
 
