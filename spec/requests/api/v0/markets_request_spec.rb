@@ -157,6 +157,38 @@ describe "Markets API" do
       expect(search_market).to have_key(:vendor_count)
       expect(search_market[:vendor_count]).to eq(5)     
     end
+    
+    describe 'Happy Paths for Queries' do
+      it 'works for state and city' do
+        get "/api/v0/markets/search?city=albuquerque&state=new Mexico"
+  
+        search_market = JSON.parse(response.body, symbolize_names: true)[:data]
+        search_market = search_market.first
+  
+        expect(search_market).to have_key(:id)
+        expect(search_market[:id]).to eq(@market1.id.to_s)   
+      end
+  
+      it 'works for state only' do
+        get "/api/v0/markets/search?state=new Mexico"
+  
+        search_market = JSON.parse(response.body, symbolize_names: true)[:data]
+        search_market = search_market.first
+  
+        expect(search_market).to have_key(:id)
+        expect(search_market[:id]).to eq(@market1.id.to_s)    
+      end
+  
+      it "works for state and name" do
+        get "/api/v0/markets/search?state=new Mexico&name=Nob hill"
+  
+        search_market = JSON.parse(response.body, symbolize_names: true)[:data]
+        search_market = search_market.first
+  
+        expect(search_market).to have_key(:id)
+        expect(search_market[:id]).to eq(@market1.id.to_s) 
+      end
+    end
   end
 
 end
