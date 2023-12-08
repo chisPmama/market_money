@@ -22,6 +22,6 @@ describe "Get Cash Dispensers Near a Market" do
     expect(response.status).to eq(200)
 
     atms = JSON.parse(response.body, symbolize_names: true)[:data]
-    binding.pry
+    # binding.pry
   end
 end
